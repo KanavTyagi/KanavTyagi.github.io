@@ -151,8 +151,9 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
 .btn.primary { background: var(--coral); border-color: var(--coral); color: var(--page); }
 .btn.primary:hover { color: var(--page); opacity: 0.9; }
 .hero-figure { position: relative; padding: 0 8px 64px; }
-.hero-figure .note-a { position: absolute; left: -36px; bottom: 18px; }
-.hero-figure .note-b { position: absolute; right: 4px; top: -34px; transform: rotate(2deg); }
+.hero-figure .note-a { position: absolute; left: 0; right: 0; bottom: 12px; display: block; text-align: center; }
+.hero-figure .note-b { position: absolute; right: 0; top: -38px; transform: rotate(2deg); }
+.hero .tagline { display: block; width: max-content; }
 
 /* ---------- About ---------- */
 .about p { color: var(--ink-muted); max-width: 700px; margin-bottom: 14px; font-size: 1.04rem; }

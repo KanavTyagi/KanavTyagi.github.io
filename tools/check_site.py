@@ -211,6 +211,16 @@ def test_no_placeholders():
     return "; ".join(bad) or None
 
 
+def test_skills_strings_quoted():
+    """Every text:/where: string in the SKILLS data must not contain an unescaped single quote."""
+    src = read("index.html")
+    bad = []
+    for line in re.findall(r"^\s*\{\s*text:.*$", src, re.M):
+        if not re.fullmatch(r"\s*\{\s*text:\s*'(?:[^'\\]|\\.)*'\s*,\s*(?:ref|where):\s*'(?:[^'\\]|\\.)*'\s*\},?\s*", line):
+            bad.append(line.strip()[:70])
+    return f"malformed SKILLS lines: {bad}" if bad else None
+
+
 # ---------------- Task 2 ----------------
 
 def test_fonts_present_and_small():
