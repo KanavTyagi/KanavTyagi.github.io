@@ -264,6 +264,19 @@
           <div class="tags"><span>C</span><span>Computer Architecture</span><span>Cache Simulation</span></div>
         </article>
 
+        <article class="card" id="p-robo" data-label="Robo Heist Challenge">
+          <div class="when">Winter 2025</div>
+          <h3>Robo Heist Challenge</h3>
+          <p>
+            An autonomous robot that works its way through a secured arena, finds its targets and
+            retrieves them. Ultrasonic sensors and wheel encoders handle obstacle detection and
+            precise navigation, and the decision logic is written in C++ on Arduino. The fun part
+            was the security: getting past it meant duplicating RFID keys and exploiting the limits
+            of the laser tripwire detection.
+          </p>
+          <div class="tags"><span>Arduino</span><span>C++</span><span>Sensors</span><span>Autonomy</span></div>
+        </article>
+
         <article class="card" id="p-lice" data-label="Lunar Ice Cave Explorer (LICE)">
           <div class="when">Fall 2024</div>
           <h3>Lunar Ice Cave Explorer (LICE)</h3>
@@ -419,7 +432,7 @@
       { text: 'Wrote a 16-bit XM23 CPU emulator in about 4,800 lines of C, with interrupts, devices, a cache simulator and a debugger.', ref: 'p-xm23' },
       { text: 'Wrote autonomous rover software in C for pathfinding, resource management and obstacle avoidance.', ref: 'p-lice' },
       { text: 'Programmed real-time detection and barrier control firmware in C for a railway crossing safety system.', where: 'Railway Crossing Control System' },
-      { text: 'Implemented decision-making logic in C++/Arduino for an autonomous retrieval robot.', where: 'Robo Heist Challenge' }
+      { text: 'Implemented decision-making logic in C++/Arduino for an autonomous retrieval robot.', ref: 'p-robo' }
     ],
     'FreeRTOS': [
       { text: 'Used priority-based pre-emptive scheduling on a dual-core ESP32 to coordinate a drive chassis, a lift servo and a pivot servo.', ref: 'p-crane' },
@@ -436,7 +449,7 @@
     ],
     'Atmel / Arduino': [
       { text: 'Built an embedded safety system on an Atmel Mega328P with photoresistors, servos and LEDs.', where: 'Railway Crossing Control System' },
-      { text: 'Integrated ultrasonic sensors and encoders for obstacle detection and precise navigation on an Arduino robot.', where: 'Robo Heist Challenge' }
+      { text: 'Integrated ultrasonic sensors and encoders for obstacle detection and precise navigation on an Arduino robot.', ref: 'p-robo' }
     ],
     'PI/PID Control': [
       { text: 'Tuned PI gains in power conversion firmware for stability and transient response.', ref: 'x-drs' },
