@@ -97,6 +97,14 @@
       background: var(--bg); color: var(--accent); border: 1px solid var(--border);
     }
     .card .links { margin-top: 16px; font-size: 0.9rem; }
+    .card { position: relative; transition: border-color 0.15s, transform 0.15s; }
+    .card h3 a.card-link { color: var(--text); }
+    .card h3 a.card-link::after { content: ""; position: absolute; inset: 0; border-radius: 10px; }
+    .card h3 a.card-link:hover { text-decoration: none; }
+    .card:hover { transform: translateY(-2px); }
+    .card:focus-within { border-color: var(--accent); }
+    .card .more { margin-top: 14px; font-size: 0.88rem; color: var(--accent); }
+    @media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
     .card .when { color: var(--accent); font-size: 0.8rem; margin-bottom: 6px; }
     .timeline ul { color: var(--muted); font-size: 0.95rem; margin: 6px 0 0 18px; }
     .skill-group { margin-bottom: 22px; }
@@ -242,7 +250,7 @@
 
         <article class="card" id="p-crane" data-label="Wireless Mobile Marine Cargo Crane">
           <div class="when">Fall 2026</div>
-          <h3>Wireless Mobile Marine Cargo Crane</h3>
+          <h3><a class="card-link" href="projects/crane.html">Wireless Mobile Marine Cargo Crane</a></h3>
           <p>
             A remote-controlled crane running FreeRTOS on a dual-core ESP32. The limit switches
             fire interrupts that cut the motor PWM straight away, without waiting for a task to
@@ -250,11 +258,12 @@
             if the link drops. I also designed the remote's two-layer PCB.
           </p>
           <div class="tags"><span>ESP32</span><span>FreeRTOS</span><span>ESP-NOW</span><span>KiCad</span></div>
+          <div class="more">View details &rarr;</div>
         </article>
 
         <article class="card" id="p-xm23" data-label="XM23 CPU Emulator">
           <div class="when">Winter 2025</div>
-          <h3>XM23 CPU Emulator</h3>
+          <h3><a class="card-link" href="projects/xm23.html">XM23 CPU Emulator</a></h3>
           <p>
             A 16-bit CPU emulator I wrote in about 4,800 lines of C. It runs the full XM23
             instruction set, handles nested interrupts and faults, and talks to memory-mapped
@@ -262,11 +271,12 @@
             associative, and step through code with the built-in debugger.
           </p>
           <div class="tags"><span>C</span><span>Computer Architecture</span><span>Cache Simulation</span></div>
+          <div class="more">View details &rarr;</div>
         </article>
 
         <article class="card" id="p-robo" data-label="Robo Heist Challenge">
           <div class="when">Winter 2025</div>
-          <h3>Robo Heist Challenge</h3>
+          <h3><a class="card-link" href="projects/robo-heist.html">Robo Heist Challenge</a></h3>
           <p>
             An autonomous robot that works its way through a secured arena, finds its targets and
             retrieves them. Ultrasonic sensors and wheel encoders handle obstacle detection and
@@ -275,28 +285,31 @@
             of the laser tripwire detection.
           </p>
           <div class="tags"><span>Arduino</span><span>C++</span><span>Sensors</span><span>Autonomy</span></div>
+          <div class="more">View details &rarr;</div>
         </article>
 
         <article class="card" id="p-lice" data-label="Lunar Ice Cave Explorer (LICE)">
           <div class="when">Fall 2024</div>
-          <h3>Lunar Ice Cave Explorer (LICE)</h3>
+          <h3><a class="card-link" href="projects/lice.html">Lunar Ice Cave Explorer (LICE)</a></h3>
           <p>
             Software for a rover exploring a simulated lunar ice cave, written in C. It plans its
             own path, manages its resources, and steers around obstacles, all drawn in the
             terminal with VT100 graphics.
           </p>
           <div class="tags"><span>C</span><span>Pathfinding</span><span>Autonomy</span></div>
+          <div class="more">View details &rarr;</div>
         </article>
 
         <article class="card" id="p-coral" data-label="Underwater Coral Monitoring Station">
           <div class="when">Winter 2024</div>
-          <h3>Underwater Coral Monitoring Station</h3>
+          <h3><a class="card-link" href="projects/coral.html">Underwater Coral Monitoring Station</a></h3>
           <p>
             An underwater station that logs temperature, pH, and turbidity on a coral reef. I
             designed the KiCad PCBs for the sensor interfaces and power regulation. It logs data
             on a microcontroller and sends it out wirelessly from a waterproof 3D-printed housing.
           </p>
           <div class="tags"><span>KiCad</span><span>Sensors</span><span>3D Printing</span></div>
+          <div class="more">View details &rarr;</div>
         </article>
 
       </div>
