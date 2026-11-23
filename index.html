@@ -120,6 +120,9 @@
     .skill-result[hidden] { display: none; }
     .skill-result strong { color: var(--text); }
     .skill-result a { margin-right: 4px; }
+    .skills .skill-result { flex: 0 0 100%; margin: 2px 0 6px; }
+    .skill-result button.clear { padding: 0; border-radius: 0; background: none; border: 0; color: var(--muted); }
+    .skill-result button.clear::after { content: none; }
     .skill-result ul { margin: 8px 0 0 18px; }
     .skill-result li { margin-bottom: 6px; color: var(--muted); }
     .skill-result li .where { color: var(--accent); font-size: 0.85rem; white-space: nowrap; }
@@ -488,11 +491,21 @@
     pills.push(btn);
   });
 
+  // Open the panel right under the visual row that holds the clicked pill.
+  var openBtn = null;
+  function place(btn) {
+    result.remove();
+    var row = btn.parentElement, top = btn.offsetTop, last = btn;
+    Array.prototype.forEach.call(row.children, function (ch) { if (ch.offsetTop === top) last = ch; });
+    last.after(result);
+  }
+  window.addEventListener('resize', function () { if (openBtn && !result.hidden) place(openBtn); });
+
   function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
   function clearAll() {
     pills.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
     document.querySelectorAll('.match').forEach(function (el) { el.classList.remove('match'); });
-    result.hidden = true; result.innerHTML = '';
+    result.hidden = true; result.innerHTML = ''; openBtn = null;
   }
   pills.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -511,6 +524,10 @@
       });
       result.innerHTML = html + '</ul>';
       result.hidden = false;
+      openBtn = btn;
+      place(btn);
+      var r = result.getBoundingClientRect();
+      if (r.bottom > window.innerHeight || r.top < 70) result.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       if (window.goatcounter && window.goatcounter.count) {
         window.goatcounter.count({ path: 'skill-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-'), title: 'Skill filter: ' + name, event: true });
       }
