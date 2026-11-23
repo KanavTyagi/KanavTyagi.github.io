@@ -221,6 +221,12 @@ def test_skills_strings_quoted():
     return f"malformed SKILLS lines: {bad}" if bad else None
 
 
+def test_project_pages_have_spec():
+    bad = [p for p in PAGES if p.startswith("projects/")
+           if len(dom(p).find_all(lambda n: n.tag == "table" and "spec" in n.classes)) != 1]
+    return f"pages without exactly one .spec table: {bad}" if bad else None
+
+
 # ---------------- Task 2 ----------------
 
 def test_fonts_present_and_small():

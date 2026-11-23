@@ -5,31 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wireless Mobile Marine Cargo Crane | Kanav Tyagi</title>
   <meta name="description" content="A scaled, remote-controlled mobile crane for moving cargo safely between levels. It drives on a differential-drive chassis, lifts with a vertical servo and swings on a 180° pivot, all coordinated by FreeRTOS on a dual-core ESP32 and driven from a handheld ESP32 remote.">
-  <link rel="stylesheet" href="project.css">
+  <meta name="theme-color" content="#1b1a18">
+  <link rel="stylesheet" href="../notebook.css">
 </head>
 <body>
 
-<header>
-  <div class="container">
-    <a href="../index.html" class="logo">KT</a>
-    <nav>
-      <a href="../index.html#projects">All projects</a>
-      <a href="../Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-project" data-goatcounter-title="Resume download (project page)">Resume</a>
+<header class="site-header">
+  <div class="wrap">
+    <a href="../index.html" class="site-name">Kanav Tyagi</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="../index.html#projects">all projects</a>
+      <a href="../Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-project" data-goatcounter-title="Resume download (project page)">resume</a>
     </nav>
   </div>
 </header>
 
-<main class="container">
+<main class="wrap">
 
-  <div class="project-hero">
+  <div class="proj-hero">
     <div class="crumb"><a href="../index.html#p-crane">&larr; Back to projects</a></div>
     <h1>Wireless Mobile Marine Cargo Crane</h1>
     <div class="meta">Oct 2026 – Dec 2026 · Dalhousie University · Two-person team<span class="badge">In progress</span></div>
+    <table class="spec"><tr><th scope="row">MCU</th><td>ESP32, dual core</td></tr><tr><th scope="row">RTOS</th><td>FreeRTOS, pre-emptive</td></tr><tr><th scope="row">Link</th><td>ESP-NOW + watchdog</td></tr><tr><th scope="row">Board</th><td>2-layer, KiCad</td></tr></table>
     <p class="overview">A scaled, remote-controlled mobile crane for moving cargo safely between levels. It drives on a differential-drive chassis, lifts with a vertical servo and swings on a 180° pivot, all coordinated by FreeRTOS on a dual-core ESP32 and driven from a handheld ESP32 remote.</p>
+    <figure class="taped printout proj-figure">
+      <div class="placeholder" role="img" aria-label="KiCad layout of the handheld crane controller PCB (image coming)">KiCad layout of the handheld crane controller PCB<br>(image coming)</div>
+      <figcaption class="caption">KiCad layout. off to the fab.</figcaption>
+    </figure>
   </div>
 
   <section class="block">
-    <h2>What I <span>built</span></h2>
+    <div class="page-head"><h2>What I built</h2></div>
     <ul class="built">
       <li>Priority-based pre-emptive FreeRTOS scheduling on a dual-core ESP32 that coordinates the drive chassis, the vertical lift servo and the 180° pivot servo.</li>
       <li>Hard real-time safety interlocks: GPIO external-interrupt ISRs on four limit switches cut the PWM outputs immediately and signal a dedicated fault-handling task.</li>
@@ -42,7 +48,7 @@
   </section>
 
   <section class="block">
-    <h2>Tools &amp; <span>tech</span></h2>
+    <div class="page-head"><h2>Tools &amp; tech</h2></div>
     <div class="tools"><span>ESP32</span><span>FreeRTOS</span><span>ESP-NOW</span><span>KiCad</span><span>L298N H-bridge</span><span>PWM</span><span>Interrupts (ISRs)</span><span>3D printing</span></div>
   </section>
 
@@ -52,8 +58,8 @@
 
 </main>
 
-<footer>
-  <div class="container">
+<footer class="site-footer">
+  <div class="wrap">
     &copy; 2026 Kanav Tyagi. Plain HTML and CSS: 0 dependencies, 0 warnings.
   </div>
 </footer>
