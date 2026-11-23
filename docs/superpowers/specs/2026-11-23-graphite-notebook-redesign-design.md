@@ -49,6 +49,27 @@ variant 1 (left).
 - The site gets heavy or slow (big fonts, unoptimized photos, scripts).
 - Placeholder photo boxes go live.
 
+## Balance: professional core, fun edges
+
+Roughly 80% professional, 20% fun by page area. Rules:
+
+1. **Typed text carries every fact.** Someone reading only the typed text gets the full
+   professional picture; handwritten notes add personality, never needed information.
+2. **At most one handwritten note per section or project entry**, one line, small,
+   rotated no more than 3°.
+3. **Every note is true and about the work.** No jokes that undercut competence or care.
+   "…usually on the 3rd revision" is the limit of self-deprecation.
+4. **Fun never blocks anything:** no animations to wait for, no hidden content, no novelty
+   navigation; everything readable and reachable on a phone.
+5. **Serious things stay serious:** resume PDF, contact buttons and experience entries get
+   no jokes.
+6. **Easter eggs stay hidden:** HardFault 404, console message, status LED are rewards for
+   the curious, not front-and-centre.
+
+Test: a conservative hiring manager at a defence company should read "clear, competent,
+detail-oriented"; a startup engineer should read "this person clearly enjoys this". If an
+element would make the first one hesitate, it goes.
+
 ## Constraints
 
 - GitHub Pages static hosting, served from `main` at the repo root. Plain HTML/CSS plus the
