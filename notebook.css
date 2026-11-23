@@ -336,3 +336,4 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
   .led, .flash { animation: none; }
   .entry { transition: none; }
 }
+.proj-figure.portrait { max-width: 380px; }
