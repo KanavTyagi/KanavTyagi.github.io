@@ -300,7 +300,7 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
 .pager .next { text-align: right; grid-column: 2; }
 
 /* ---------- 404 ---------- */
-.fault { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+.fault { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 18px; padding: 24px 16px; }
 .fault pre {
   white-space: pre-wrap; max-width: 560px; line-height: 1.7;
   font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace;
