@@ -22,8 +22,7 @@ IDS = ["p-crane", "p-xm23", "p-robo", "p-lice", "p-coral", "x-drs", "x-npl"]
 TOKENS = {"--page": "#1b1a18", "--grid": "#2a2824", "--ink": "#e8e3d8", "--ink-muted": "#a49c8c",
           "--ink-faint": "#8f877a", "--coral": "#f08a6c", "--blue": "#8fc1ff", "--rule": "#3a3730",
           "--entry": "rgba(255,255,255,.03)", "--tape": "rgba(232,200,120,.55)", "--frame": "#ece6d8"}
-FONT_FILES = ["fraunces-500", "fraunces-700", "caveat-500", "plex-sans-400", "plex-sans-600",
-              "plex-mono-400", "plex-mono-600"]
+FONT_FILES = ["fraunces", "caveat-500", "plex-sans", "plex-mono-400", "plex-mono-600"]  # fraunces, plex-sans are variable (both weights)
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
 
