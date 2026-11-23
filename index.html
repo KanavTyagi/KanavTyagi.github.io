@@ -37,8 +37,26 @@
       height: 60px;
     }
     .logo { font-weight: 700; color: var(--text); }
-    nav a { color: var(--muted); margin-left: 20px; font-size: 0.95rem; }
+    nav a { color: var(--muted); margin-left: 20px; font-size: 0.95rem; position: relative; }
     nav a:hover { color: var(--text); text-decoration: none; }
+    nav .num {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.8em; color: var(--accent); margin-right: 4px;
+    }
+    nav a.active { color: var(--text); }
+    nav a.active::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+      height: 2px; background: var(--accent); border-radius: 2px;
+    }
+
+    /* Flash-programming style scroll progress */
+    .progress {
+      position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+      background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 13px);
+      clip-path: inset(0 100% 0 0);
+      pointer-events: none;
+    }
+    section, .card, .timeline .item { scroll-margin-top: 84px; }
 
     .hero { padding: 120px 0 80px; }
     .hero h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.1; }
@@ -85,10 +103,32 @@
     .skill-group h3 { font-size: 0.95rem; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
 
     .skills { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skills span {
-      padding: 8px 14px; background: var(--panel);
-      border: 1px solid var(--border); border-radius: 999px; font-size: 0.9rem;
+    .skills span, .skills button {
+      padding: 8px 14px; background: var(--panel); color: var(--text);
+      border: 1px solid var(--border); border-radius: 999px; font: inherit; font-size: 0.9rem;
     }
+    .skills button { cursor: pointer; border-color: #35506b; }
+    .skills button::after { content: " \2197"; color: var(--muted); font-size: 0.8em; }
+    .skills button:hover { border-color: var(--accent); }
+    .skills button[aria-pressed="true"] { background: var(--accent); color: #0f1115; border-color: var(--accent); }
+    .skills button[aria-pressed="true"]::after { color: #0f1115; }
+    .skill-hint { color: var(--muted); font-size: 0.9rem; margin: -12px 0 22px; }
+    .skill-result {
+      min-height: 1.6em; margin-top: 4px; padding: 12px 16px; border-radius: 8px;
+      background: var(--panel); border: 1px solid var(--border); color: var(--muted); font-size: 0.92rem;
+    }
+    .skill-result[hidden] { display: none; }
+    .skill-result strong { color: var(--text); }
+    .skill-result a { margin-right: 4px; }
+    .skill-result .clear {
+      background: none; border: 0; color: var(--muted); font: inherit; cursor: pointer;
+      text-decoration: underline; margin-left: 6px;
+    }
+    .match { border-color: var(--accent) !important; box-shadow: 0 0 0 1px var(--accent), 0 0 18px rgba(79, 209, 197, 0.25); }
+    .timeline .item.match { box-shadow: none; }
+    .timeline .item.match h3 { color: var(--accent); }
+    .flash { animation: flash 1.2s ease-out; }
+    @keyframes flash { 0% { background: rgba(79, 209, 197, 0.18); } 100% { background: transparent; } }
 
     .timeline { border-left: 2px solid var(--border); padding-left: 24px; }
     .timeline .item { margin-bottom: 28px; position: relative; }
@@ -123,6 +163,10 @@
     .timeline .item:hover::before { box-shadow: 0 0 10px var(--accent); }
     @media (prefers-reduced-motion: reduce) { .led { animation: none; } }
 
+    @media (max-width: 720px) {
+      nav { overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+      nav .num { display: none; }
+    }
     @media (max-width: 640px) {
       nav a { margin-left: 12px; font-size: 0.85rem; }
       .hero { padding: 90px 0 60px; }
@@ -135,14 +179,15 @@
   <div class="container">
     <a href="#top" class="logo">KT</a>
     <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+      <a href="#about"><span class="num">01.</span>About</a>
+      <a href="#projects"><span class="num">02.</span>Projects</a>
+      <a href="#experience"><span class="num">03.</span>Experience</a>
+      <a href="#skills"><span class="num">04.</span>Skills</a>
+      <a href="#contact"><span class="num">05.</span>Contact</a>
       <a href="Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-nav" data-goatcounter-title="Resume download (nav)">Resume</a>
     </nav>
   </div>
+  <div class="progress" aria-hidden="true"></div>
 </header>
 
 <main id="top">
@@ -188,7 +233,7 @@
       <h2>Selected <span>projects</span></h2>
       <div class="grid">
 
-        <article class="card">
+        <article class="card" id="p-crane" data-label="Wireless Mobile Marine Cargo Crane">
           <div class="when">Fall 2026</div>
           <h3>Wireless Mobile Marine Cargo Crane</h3>
           <p>
@@ -200,7 +245,7 @@
           <div class="tags"><span>ESP32</span><span>FreeRTOS</span><span>ESP-NOW</span><span>KiCad</span></div>
         </article>
 
-        <article class="card">
+        <article class="card" id="p-xm23" data-label="XM23 CPU Emulator">
           <div class="when">Winter 2025</div>
           <h3>XM23 CPU Emulator</h3>
           <p>
@@ -212,7 +257,7 @@
           <div class="tags"><span>C</span><span>Computer Architecture</span><span>Cache Simulation</span></div>
         </article>
 
-        <article class="card">
+        <article class="card" id="p-lice" data-label="Lunar Ice Cave Explorer (LICE)">
           <div class="when">Fall 2024</div>
           <h3>Lunar Ice Cave Explorer (LICE)</h3>
           <p>
@@ -223,7 +268,7 @@
           <div class="tags"><span>C</span><span>Pathfinding</span><span>Autonomy</span></div>
         </article>
 
-        <article class="card">
+        <article class="card" id="p-coral" data-label="Underwater Coral Monitoring Station">
           <div class="when">Winter 2024</div>
           <h3>Underwater Coral Monitoring Station</h3>
           <p>
@@ -243,7 +288,7 @@
       <h2>Work <span>&amp; education</span></h2>
       <div class="timeline">
 
-        <div class="item">
+        <div class="item" id="x-drs" data-label="Leonardo DRS co-op">
           <div class="meta">Jan 2026 – Sep 2026 · Bedford, NS</div>
           <h3>Electrical Engineering Co-op (Naval Engineering) | Leonardo DRS</h3>
           <ul>
@@ -259,7 +304,7 @@
           <p>Graded engineering technical reports and presentations, and coached students on professional technical writing.</p>
         </div>
 
-        <div class="item">
+        <div class="item" id="x-npl" data-label="CSIR NPL internship">
           <div class="meta">Jun 2024 – Jul 2024 · Delhi, India</div>
           <h3>Lab Intern, Bio-Technology Lab | CSIR National Physical Laboratory</h3>
           <p>Electrical safety testing of medical equipment to IEC 60601. I also built a Python model that predicts EKG protective earth resistance from temperature and humidity, with 85% accuracy on 15,000+ data points.</p>
@@ -278,27 +323,29 @@
   <section id="skills">
     <div class="container">
       <h2>Skills &amp; <span>tools</span></h2>
+      <p class="skill-hint">Click a highlighted skill to see exactly where I used it.</p>
       <div class="skill-group">
         <h3>Firmware &amp; microcontrollers</h3>
         <div class="skills">
-          <span>C / C++</span><span>FreeRTOS</span><span>TI MCUs / CCS</span><span>STM32</span>
-          <span>ESP32</span><span>Atmel / Arduino</span><span>PI/PID Control</span><span>Assembly</span>
+          <button type="button" aria-pressed="false" data-uses="p-crane p-xm23 p-lice">C / C++</button><button type="button" aria-pressed="false" data-uses="p-crane">FreeRTOS</button><button type="button" aria-pressed="false" data-uses="x-drs">TI MCUs / CCS</button><span>STM32</span>
+          <button type="button" aria-pressed="false" data-uses="p-crane">ESP32</button><span>Atmel / Arduino</span><button type="button" aria-pressed="false" data-uses="x-drs">PI/PID Control</button><span>Assembly</span>
         </div>
       </div>
       <div class="skill-group">
         <h3>Hardware &amp; interfaces</h3>
         <div class="skills">
-          <span>KiCad PCB Design</span><span>Power Electronics</span><span>CAN bus</span><span>UART / I2C</span>
-          <span>PWM / H-Bridge</span><span>ESP-NOW</span><span>Oscilloscopes &amp; Logic Analyzers</span>
+          <button type="button" aria-pressed="false" data-uses="p-crane p-coral">KiCad PCB Design</button><button type="button" aria-pressed="false" data-uses="x-drs">Power Electronics</button><button type="button" aria-pressed="false" data-uses="x-drs">CAN bus</button><span>UART / I2C</span>
+          <button type="button" aria-pressed="false" data-uses="p-crane">PWM / H-Bridge</button><button type="button" aria-pressed="false" data-uses="p-crane">ESP-NOW</button><span>Oscilloscopes &amp; Logic Analyzers</span>
         </div>
       </div>
       <div class="skill-group">
         <h3>Software &amp; simulation</h3>
         <div class="skills">
-          <span>PSIM</span><span>MATLAB / Simulink</span><span>Python</span><span>Linux</span>
+          <button type="button" aria-pressed="false" data-uses="x-drs">PSIM</button><span>MATLAB / Simulink</span><button type="button" aria-pressed="false" data-uses="x-npl">Python</button><span>Linux</span>
           <span>Git</span><span>SolidWorks</span>
         </div>
       </div>
+      <div class="skill-result" id="skill-result" role="status" aria-live="polite" hidden></div>
     </div>
   </section>
 
@@ -329,6 +376,66 @@
 <script>
   console.log("%c[  OK  ] boot complete", "color:#4fd1c5;font-family:monospace;font-weight:bold");
   console.log("%cReading the source? Same. Say hi at kanavtyagi.172@gmail.com", "font-family:monospace");
+</script>
+<script>
+(function () {
+  // Active section highlighting + scroll progress
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav a[href^="#"]'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var bar = document.querySelector('.progress');
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+    bar.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    var line = window.innerHeight * 0.35, current = -1;
+    sections.forEach(function (sec, i) { if (sec && sec.getBoundingClientRect().top <= line) current = i; });
+    if (window.innerHeight + window.scrollY >= doc.scrollHeight - 4) current = sections.length - 1;
+    links.forEach(function (a, i) {
+      a.classList.toggle('active', i === current);
+      if (i === current) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  // Skill pills -> where it was used
+  var pills = Array.prototype.slice.call(document.querySelectorAll('.skills button[data-uses]'));
+  var result = document.getElementById('skill-result');
+  function clearAll() {
+    pills.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    document.querySelectorAll('.match').forEach(function (el) { el.classList.remove('match'); });
+    result.hidden = true; result.innerHTML = '';
+  }
+  pills.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var wasOn = btn.getAttribute('aria-pressed') === 'true';
+      clearAll();
+      if (wasOn) return;
+      btn.setAttribute('aria-pressed', 'true');
+      var targets = btn.dataset.uses.split(' ').map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      targets.forEach(function (el) { el.classList.add('match'); });
+      result.innerHTML = '<strong>' + btn.textContent + '</strong> &rarr; used in: ' +
+        targets.map(function (el) { return '<a href="#' + el.id + '">' + el.dataset.label + '</a>'; }).join(' &middot; ') +
+        ' <button type="button" class="clear">clear</button>';
+      result.hidden = false;
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'skill-' + btn.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-'), title: 'Skill filter: ' + btn.textContent, event: true });
+      }
+    });
+  });
+  result.addEventListener('click', function (e) {
+    if (e.target.classList.contains('clear')) { clearAll(); return; }
+    var a = e.target.closest('a[href^="#"]');
+    if (a) {
+      var el = document.querySelector(a.getAttribute('href'));
+      if (el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+    }
+  });
+})();
 </script>
 <script data-goatcounter="https://kanavtyagi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
