@@ -107,6 +107,27 @@
       padding: 28px 0; text-align: center; color: var(--muted); font-size: 0.85rem;
     }
 
+    /* Easter eggs */
+    ::selection { background: var(--accent); color: #0f1115; }
+    h2 code.addr {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.8rem; font-weight: 400; color: var(--muted);
+      margin-right: 12px; vertical-align: middle;
+    }
+    .status {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .led {
+      width: 8px; height: 8px; border-radius: 50%; flex: none;
+      background: #3ddc84; box-shadow: 0 0 6px #3ddc84;
+      animation: blink 2.4s steps(1) infinite;
+    }
+    @keyframes blink { 0%, 85% { opacity: 1; } 86%, 100% { opacity: 0.25; } }
+    .timeline .item:hover::before { box-shadow: 0 0 10px var(--accent); }
+    @media (prefers-reduced-motion: reduce) { .led { animation: none; } }
+
     @media (max-width: 640px) {
       nav a { margin-left: 12px; font-size: 0.85rem; }
       .hero { padding: 90px 0 60px; }
@@ -141,6 +162,7 @@
         firmware and real-time control. I recently finished an Electrical Engineering co-op with
         the Naval Engineering team at Leonardo DRS.
       </p>
+      <div class="status" title="Status: open to work"><span class="led"></span>STATUS: open to new-grad roles &middot; graduating April 2027</div>
       <div class="btns">
         <a class="btn primary" href="#projects">View Projects</a>
         <a class="btn" href="Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-hero" data-goatcounter-title="Resume download (hero)">Download Resume</a>
@@ -151,35 +173,34 @@
 
   <section id="about">
     <div class="container about">
-      <h2>About <span>me</span></h2>
+      <h2><code class="addr">0x01</code>About <span>me</span></h2>
       <p>
-        I'm most interested in embedded systems on the power side: firmware for power conversion,
-        control-loop tuning, and the hardware that ties it together. I enjoy taking an idea from a
-        sketch to a working prototype, whether that is a PCB, an RTOS-based controller, or a
-        monitoring system.
+        I like the power side of embedded work: the firmware that runs a converter, tuning a
+        control loop until it settles properly, and the hardware underneath it all. My favourite
+        part of a project is getting it from a sketch to something I can put a scope probe on.
       </p>
       <p>
-        At Leonardo DRS I developed and tuned firmware for power conversion systems on TI
-        microcontrollers, simulated control loops in PSIM, and worked with CAN bus on
-        high-reliability UPS systems for naval applications. I'm looking for new-grad roles in
-        embedded, firmware, and hardware engineering.
+        At Leonardo DRS I wrote and tuned firmware for power conversion on TI microcontrollers,
+        checked control loops in PSIM before they touched hardware, and worked with CAN bus on
+        UPS systems for naval ships. Now I'm looking for a new-grad role in embedded, firmware,
+        or hardware engineering.
       </p>
     </div>
   </section>
 
   <section id="projects">
     <div class="container">
-      <h2>Selected <span>projects</span></h2>
+      <h2><code class="addr">0x02</code>Selected <span>projects</span></h2>
       <div class="grid">
 
         <article class="card">
           <div class="when">Fall 2026</div>
           <h3>Wireless Mobile Marine Cargo Crane</h3>
           <p>
-            A teleoperated crane prototype on a dual-core ESP32 using pre-emptive FreeRTOS
-            scheduling. Limit-switch ISRs cut PWM outputs immediately for hard real-time safety.
-            Commands arrive over a low-latency ESP-NOW link from a handheld controller, guarded by
-            a connection watchdog. I also designed the two-layer controller PCB.
+            A remote-controlled crane running FreeRTOS on a dual-core ESP32. The limit switches
+            fire interrupts that cut the motor PWM straight away, without waiting for a task to
+            notice. A handheld ESP32 remote sends commands over ESP-NOW, and a watchdog catches it
+            if the link drops. I also designed the remote's two-layer PCB.
           </p>
           <div class="tags"><span>ESP32</span><span>FreeRTOS</span><span>ESP-NOW</span><span>KiCad</span></div>
         </article>
@@ -188,10 +209,10 @@
           <div class="when">Winter 2025</div>
           <h3>XM23 CPU Emulator</h3>
           <p>
-            An emulator for the 16-bit XM23 ISA in about 4,800 lines of C. It covers the full
-            instruction set with conditional execution, memory-mapped devices, and a priority
-            interrupt controller with nesting and tail-chaining. It also includes a configurable
-            cache simulator and an interactive debugger.
+            A 16-bit CPU emulator I wrote in about 4,800 lines of C. It runs the full XM23
+            instruction set, handles nested interrupts and faults, and talks to memory-mapped
+            devices. You can switch the cache simulator between direct-mapped and fully
+            associative, and step through code with the built-in debugger.
           </p>
           <div class="tags"><span>C</span><span>Computer Architecture</span><span>Cache Simulation</span></div>
         </article>
@@ -200,9 +221,9 @@
           <div class="when">Fall 2024</div>
           <h3>Lunar Ice Cave Explorer (LICE)</h3>
           <p>
-            Autonomous rover software in C for pathfinding, resource management, and obstacle
-            avoidance in a simulated lunar environment. It uses custom data structures for spatial
-            data and VT100 graphics.
+            Software for a rover exploring a simulated lunar ice cave, written in C. It plans its
+            own path, manages its resources, and steers around obstacles, all drawn in the
+            terminal with VT100 graphics.
           </p>
           <div class="tags"><span>C</span><span>Pathfinding</span><span>Autonomy</span></div>
         </article>
@@ -211,9 +232,9 @@
           <div class="when">Winter 2024</div>
           <h3>Underwater Coral Monitoring Station</h3>
           <p>
-            A prototype reef monitoring station that puts temperature, pH, and turbidity sensors in
-            a waterproof 3D-printed housing. It uses custom KiCad PCBs for sensor interfacing and
-            power regulation, plus microcontroller data logging and wireless communication.
+            An underwater station that logs temperature, pH, and turbidity on a coral reef. I
+            designed the KiCad PCBs for the sensor interfaces and power regulation. It logs data
+            on a microcontroller and sends it out wirelessly from a waterproof 3D-printed housing.
           </p>
           <div class="tags"><span>KiCad</span><span>Sensors</span><span>3D Printing</span></div>
         </article>
@@ -224,7 +245,7 @@
 
   <section id="experience">
     <div class="container">
-      <h2>Work <span>&amp; education</span></h2>
+      <h2><code class="addr">0x03</code>Work <span>&amp; education</span></h2>
       <div class="timeline">
 
         <div class="item">
@@ -261,7 +282,7 @@
 
   <section id="skills">
     <div class="container">
-      <h2>Skills &amp; <span>tools</span></h2>
+      <h2><code class="addr">0x04</code>Skills &amp; <span>tools</span></h2>
       <div class="skill-group">
         <h3>Firmware &amp; microcontrollers</h3>
         <div class="skills">
@@ -288,7 +309,7 @@
 
   <section id="contact">
     <div class="container contact">
-      <h2>Get in <span>touch</span></h2>
+      <h2><code class="addr">0x05</code>Get in <span>touch</span></h2>
       <p>
         I'm open to new-grad roles in embedded, firmware, and hardware engineering, as well as
         collaborations and conversations about embedded systems or power electronics.
@@ -306,10 +327,14 @@
 
 <footer>
   <div class="container">
-    &copy; 2026 Kanav Tyagi. Built with plain HTML and CSS.
+    &copy; 2026 Kanav Tyagi. Plain HTML and CSS: 0 dependencies, 0 warnings.
   </div>
 </footer>
 
+<script>
+  console.log("%c[  OK  ] boot complete", "color:#4fd1c5;font-family:monospace;font-weight:bold");
+  console.log("%cReading the source? Same. Say hi at kanavtyagi.172@gmail.com", "font-family:monospace");
+</script>
 <script data-goatcounter="https://kanavtyagi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
