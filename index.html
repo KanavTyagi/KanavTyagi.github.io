@@ -120,6 +120,10 @@
     .skill-result[hidden] { display: none; }
     .skill-result strong { color: var(--text); }
     .skill-result a { margin-right: 4px; }
+    .skill-result ul { margin: 8px 0 0 18px; }
+    .skill-result li { margin-bottom: 6px; color: var(--muted); }
+    .skill-result li .where { color: var(--accent); font-size: 0.85rem; white-space: nowrap; }
+    .skill-result li span.where { color: var(--muted); }
     .skill-result .clear {
       background: none; border: 0; color: var(--muted); font: inherit; cursor: pointer;
       text-decoration: underline; margin-left: 6px;
@@ -323,25 +327,25 @@
   <section id="skills">
     <div class="container">
       <h2>Skills &amp; <span>tools</span></h2>
-      <p class="skill-hint">Click a highlighted skill to see exactly where I used it.</p>
+      <p class="skill-hint">Click a skill with an &#8599; to see what I actually did with it.</p>
       <div class="skill-group">
         <h3>Firmware &amp; microcontrollers</h3>
         <div class="skills">
-          <button type="button" aria-pressed="false" data-uses="p-crane p-xm23 p-lice">C / C++</button><button type="button" aria-pressed="false" data-uses="p-crane">FreeRTOS</button><button type="button" aria-pressed="false" data-uses="x-drs">TI MCUs / CCS</button><span>STM32</span>
-          <button type="button" aria-pressed="false" data-uses="p-crane">ESP32</button><span>Atmel / Arduino</span><button type="button" aria-pressed="false" data-uses="x-drs">PI/PID Control</button><span>Assembly</span>
+          <span>C / C++</span><span>FreeRTOS</span><span>TI MCUs / CCS</span><span>STM32</span>
+          <span>ESP32</span><span>Atmel / Arduino</span><span>PI/PID Control</span><span>Assembly</span>
         </div>
       </div>
       <div class="skill-group">
         <h3>Hardware &amp; interfaces</h3>
         <div class="skills">
-          <button type="button" aria-pressed="false" data-uses="p-crane p-coral">KiCad PCB Design</button><button type="button" aria-pressed="false" data-uses="x-drs">Power Electronics</button><button type="button" aria-pressed="false" data-uses="x-drs">CAN bus</button><span>UART / I2C</span>
-          <button type="button" aria-pressed="false" data-uses="p-crane">PWM / H-Bridge</button><button type="button" aria-pressed="false" data-uses="p-crane">ESP-NOW</button><span>Oscilloscopes &amp; Logic Analyzers</span>
+          <span>KiCad PCB Design</span><span>Power Electronics</span><span>CAN bus</span><span>UART / I2C</span>
+          <span>PWM / H-Bridge</span><span>ESP-NOW</span><span>Oscilloscopes &amp; Logic Analyzers</span>
         </div>
       </div>
       <div class="skill-group">
         <h3>Software &amp; simulation</h3>
         <div class="skills">
-          <button type="button" aria-pressed="false" data-uses="x-drs">PSIM</button><span>MATLAB / Simulink</span><button type="button" aria-pressed="false" data-uses="x-npl">Python</button><span>Linux</span>
+          <span>PSIM</span><span>MATLAB / Simulink</span><span>Python</span><span>Linux</span>
           <span>Git</span><span>SolidWorks</span>
         </div>
       </div>
@@ -402,9 +406,89 @@
   window.addEventListener('resize', update);
   update();
 
-  // Skill pills -> where it was used
-  var pills = Array.prototype.slice.call(document.querySelectorAll('.skills button[data-uses]'));
+  // ===== Skill evidence =====
+  // Each skill maps to a list of things I did with it.
+  // ref = id of a project card / experience entry on this page (optional);
+  // where = label shown when there is no ref.
+  // A skill with an empty list stays a plain, non-clickable pill.
+  var SKILLS = {
+    'C / C++': [
+      { text: 'Wrote a 16-bit XM23 CPU emulator in about 4,800 lines of C, with interrupts, devices, a cache simulator and a debugger.', ref: 'p-xm23' },
+      { text: 'Wrote autonomous rover software in C for pathfinding, resource management and obstacle avoidance.', ref: 'p-lice' },
+      { text: 'Programmed real-time detection and barrier control firmware in C for a railway crossing safety system.', where: 'Railway Crossing Control System' },
+      { text: 'Implemented decision-making logic in C++/Arduino for an autonomous retrieval robot.', where: 'Robo Heist Challenge' }
+    ],
+    'FreeRTOS': [
+      { text: 'Used priority-based pre-emptive scheduling on a dual-core ESP32 to coordinate a drive chassis, a lift servo and a pivot servo.', ref: 'p-crane' },
+      { text: 'Fed remote commands into a length-1 queue guarded by a connection-watchdog timer, with event flags and mutex-protected shared state.', ref: 'p-crane' },
+      { text: 'Limit-switch ISRs cut PWM outputs immediately and signal a dedicated fault-handling task.', ref: 'p-crane' }
+    ],
+    'TI MCUs / CCS': [
+      { text: 'Developed and optimized firmware for power conversion systems on TI microcontrollers in Code Composer Studio.', ref: 'x-drs' },
+      { text: 'Tuned proportional and integral gains for system stability and transient response.', ref: 'x-drs' }
+    ],
+    'STM32': [],
+    'ESP32': [
+      { text: 'Ran the crane on a dual-core ESP32 under FreeRTOS, controlled from a handheld ESP32 remote.', ref: 'p-crane' }
+    ],
+    'Atmel / Arduino': [
+      { text: 'Built an embedded safety system on an Atmel Mega328P with photoresistors, servos and LEDs.', where: 'Railway Crossing Control System' },
+      { text: 'Integrated ultrasonic sensors and encoders for obstacle detection and precise navigation on an Arduino robot.', where: 'Robo Heist Challenge' }
+    ],
+    'PI/PID Control': [
+      { text: 'Tuned PI gains in power conversion firmware for stability and transient response.', ref: 'x-drs' },
+      { text: 'Simulated control loops in PSIM before hardware implementation.', ref: 'x-drs' }
+    ],
+    'Assembly': [],
+    'KiCad PCB Design': [
+      { text: 'Designed a two-layer handheld controller PCB with power regulation, joystick and push-button inputs, hardware debounce and status LEDs.', ref: 'p-crane' },
+      { text: 'Designed and tested custom PCBs for sensor interfacing, power regulation and data acquisition.', ref: 'p-coral' }
+    ],
+    'Power Electronics': [
+      { text: 'Assisted in the design and testing of single-phase power systems, transformers and power electronics for high-reliability UPS systems.', ref: 'x-drs' },
+      { text: 'Simulated power stages and power conversion circuits in PSIM.', ref: 'x-drs' }
+    ],
+    'CAN bus': [
+      { text: 'Worked with CAN bus communication between modules in power management systems.', ref: 'x-drs' }
+    ],
+    'UART / I2C': [],
+    'PWM / H-Bridge': [
+      { text: 'Drove the crane chassis with DC motors through an L298N H-bridge.', ref: 'p-crane' },
+      { text: 'Made limit-switch interrupts cut PWM outputs immediately as a safety interlock.', ref: 'p-crane' }
+    ],
+    'ESP-NOW': [
+      { text: 'Built a low-latency ESP-NOW link from a handheld ESP32 remote to the crane, with a connection watchdog.', ref: 'p-crane' }
+    ],
+    'Oscilloscopes & Logic Analyzers': [],
+    'PSIM': [
+      { text: 'Simulated control loops, power stages and power conversion circuits, validating designs against voltage, thermal and military reliability standards before hardware.', ref: 'x-drs' }
+    ],
+    'MATLAB / Simulink': [],
+    'Python': [
+      { text: 'Built a predictive model (clustering and Random Forest) for EKG protective earth resistance: 85% accuracy on 15,000+ data points.', ref: 'x-npl' },
+      { text: 'Wrote scripts to analyze large datasets of medical equipment test results and flag grounding and resistance anomalies.', ref: 'x-npl' }
+    ],
+    'Linux': [],
+    'Git': [],
+    'SolidWorks': []
+  };
+
   var result = document.getElementById('skill-result');
+  var pills = [];
+  document.querySelectorAll('.skills span').forEach(function (span) {
+    var name = span.textContent.trim();
+    var items = SKILLS[name];
+    if (!items || !items.length) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = name;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('aria-controls', 'skill-result');
+    span.replaceWith(btn);
+    pills.push(btn);
+  });
+
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
   function clearAll() {
     pills.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
     document.querySelectorAll('.match').forEach(function (el) { el.classList.remove('match'); });
@@ -416,14 +500,19 @@
       clearAll();
       if (wasOn) return;
       btn.setAttribute('aria-pressed', 'true');
-      var targets = btn.dataset.uses.split(' ').map(function (id) { return document.getElementById(id); }).filter(Boolean);
-      targets.forEach(function (el) { el.classList.add('match'); });
-      result.innerHTML = '<strong>' + btn.textContent + '</strong> &rarr; used in: ' +
-        targets.map(function (el) { return '<a href="#' + el.id + '">' + el.dataset.label + '</a>'; }).join(' &middot; ') +
-        ' <button type="button" class="clear">clear</button>';
+      var name = btn.textContent;
+      var html = '<strong>What I did with ' + esc(name) + '</strong> <button type="button" class="clear">clear</button><ul>';
+      SKILLS[name].forEach(function (it) {
+        var el = it.ref && document.getElementById(it.ref);
+        if (el) el.classList.add('match');
+        var where = el ? '<a class="where" href="#' + it.ref + '">' + esc(el.dataset.label) + '</a>'
+                       : (it.where ? '<span class="where">' + esc(it.where) + '</span>' : '');
+        html += '<li>' + esc(it.text) + (where ? ' &middot; ' + where : '') + '</li>';
+      });
+      result.innerHTML = html + '</ul>';
       result.hidden = false;
       if (window.goatcounter && window.goatcounter.count) {
-        window.goatcounter.count({ path: 'skill-' + btn.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-'), title: 'Skill filter: ' + btn.textContent, event: true });
+        window.goatcounter.count({ path: 'skill-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-'), title: 'Skill filter: ' + name, event: true });
       }
     });
   });
