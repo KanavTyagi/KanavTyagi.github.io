@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XM23 CPU Emulator | Kanav Tyagi</title>
+  <meta name="description" content="An emulator for the XM23, a 16-bit instruction set architecture, written in about 4,800 lines of C. It loads S-record programs and runs them through a fetch-decode-execute loop, with memory-mapped devices, a full interrupt controller and a configurable cache.">
+  <meta name="theme-color" content="#1b1a18">
+  <link rel="stylesheet" href="../notebook.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="../index.html" class="site-name">Kanav Tyagi</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="../index.html#projects">all projects</a>
+      <a href="../Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-project" data-goatcounter-title="Resume download (project page)">resume</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="proj-hero">
+    <div class="crumb"><a href="../index.html#p-xm23">&larr; Back to projects</a></div>
+    <h1>XM23 CPU Emulator</h1>
+    <div class="meta">Jan 2025 – Apr 2025 · Dalhousie University</div>
+    <table class="spec"><tr><th scope="row">Language</th><td>C, ~4,800 lines</td></tr><tr><th scope="row">ISA</th><td>XM23, 16-bit</td></tr><tr><th scope="row">Extras</th><td>cache simulator, debugger</td></tr></table>
+    <p class="overview">An emulator for the XM23, a 16-bit instruction set architecture, written in about 4,800 lines of C. It loads S-record programs and runs them through a fetch-decode-execute loop, with memory-mapped devices, a full interrupt controller and a configurable cache.</p>
+  </div>
+
+  <section class="block">
+    <div class="page-head"><h2>What I built</h2></div>
+    <ul class="built">
+      <li>An S-record loader, a MAR/MBR bus model and a fetch-decode-execute loop covering the full instruction set, including conditional execution (CEX).</li>
+      <li>Memory-mapped timer, keyboard and screen devices.</li>
+      <li>A priority-based interrupt controller with nested interrupts, tail-chaining, and handling for illegal instructions, illegal addresses, priority faults and double faults.</li>
+      <li>A configurable cache simulator: direct-mapped or fully associative with LRU replacement, write-through or write-back with dirty-bit tracking, and hit-ratio reporting.</li>
+      <li>An interactive debugger with breakpoints and Ctrl+C interrupt.</li>
+      <li>Test cases that validate instruction execution, branching with sign extension and offsets, and device I/O.</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <div class="page-head"><h2>Tools &amp; tech</h2></div>
+    <div class="tools"><span>C</span><span>Computer architecture</span><span>Interrupt handling</span><span>Cache simulation</span><span>Debugging tools</span></div>
+  </section>
+
+  <nav class="pager" aria-label="More projects">
+    <a class="prev" href="crane.html"><small>&larr; Previous</small>Wireless Mobile Marine Cargo Crane</a>
+    <a class="next" href="robo-heist.html"><small>Next &rarr;</small>Robo Heist Challenge</a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    &copy; 2026 Kanav Tyagi. Plain HTML and CSS: 0 dependencies, 0 warnings.
+  </div>
+</footer>
+
+<script data-goatcounter="https://kanavtyagi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

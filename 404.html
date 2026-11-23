@@ -4,21 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 | Kanav Tyagi</title>
-  <style>
-    :root { --bg: #0f1115; --text: #e8eaf0; --muted: #9aa3b2; --accent: #4fd1c5; --err: #ff6b6b; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh; display: grid; place-items: center; padding: 24px 16px;
-      background: var(--bg); color: var(--text);
-      font-family: ui-monospace, "Cascadia Code", Consolas, monospace; line-height: 1.7;
-    }
-    pre { white-space: pre-wrap; font: inherit; max-width: 560px; }
-    .err { color: var(--err); font-weight: 700; }
-    .dim { color: var(--muted); }
-    a { color: var(--accent); }
-  </style>
+  <meta name="theme-color" content="#1b1a18">
+  <link rel="stylesheet" href="/notebook.css">
 </head>
 <body>
+<main class="fault">
 <pre><span class="err">*** HardFault_Handler ***</span>
 <span class="dim">CFSR : 0x00008200  (PRECISERR | BFARVALID)
 BFAR : 0x00000404
@@ -27,6 +17,8 @@ PC   : 0x0800_0404</span>
 Bus fault: that address isn't mapped to any page on this site.
 
 Recovering... <a href="/">jump to reset vector (home)</a></pre>
+<span class="note">tried every page. it&#39;s not here.</span>
+</main>
 <script data-goatcounter="https://kanavtyagi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
