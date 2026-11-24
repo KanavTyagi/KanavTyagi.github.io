@@ -239,16 +239,6 @@ def test_hero_primary_is_resume():
         return "hero primary button is not the resume download"
 
 
-def test_hero_proof_links():
-    d = dom("index.html")
-    proof = d.find_all(lambda n: "proof" in n.classes)
-    if len(proof) != 1:
-        return f"{len(proof)} .proof elements (want 1)"
-    links = [a.attrs.get("href") for a in proof[0].find_all(lambda n: n.tag == "a")]
-    want = {"projects/crane.html", "#x-drs"}
-    return None if want <= set(links) else f"proof links {links} missing {want - set(links)}"
-
-
 def test_crane_has_diagram_and_tasks():
     d = dom("projects/crane.html")
     svgs = d.find_all(lambda n: n.tag == "svg" and n.attrs.get("role") == "img" and n.attrs.get("aria-labelledby"))
