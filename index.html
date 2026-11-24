@@ -32,17 +32,20 @@
         <h1 class="hero-name">Kanav Tyagi</h1>
         <p class="headline">I build hardware that works.</p>
         <span class="note coral tagline">&hellip;usually on the 3rd revision</span>
+        <ol class="proof" aria-label="What I work on, board to control loop">
+          <li><a href="projects/crane.html"><span class="stage">Board</span>My own 2-layer controller PCB in KiCad</a></li>
+          <li><a href="projects/crane.html"><span class="stage">Firmware</span>C and FreeRTOS on a dual-core ESP32</a></li>
+          <li><a href="#x-drs"><span class="stage">Control loop</span>PI tuning on TI MCUs at Leonardo DRS</a></li>
+        </ol>
         <p class="intro">
-          Final-year Computer Engineering student at Dalhousie University, graduating April 2027.
-          I work across the embedded stack, from PCB layout in KiCad to C/C++ firmware and
-          real-time control, and recently finished an Electrical Engineering co-op with the Naval
-          Engineering team at Leonardo DRS.
+          Final-year Computer Engineering student at Dalhousie University. I recently finished an
+          Electrical Engineering co-op with the Naval Engineering team at <strong>Leonardo DRS</strong>,
+          working on power conversion firmware for naval UPS systems.
         </p>
-        <div class="status" title="Status: open to work"><span class="led"></span>STATUS: open to new-grad roles &middot; graduating April 2027</div>
+        <div class="status" title="Status: open to work"><span class="led"></span>Open to new-grad roles &middot; <span class="nowrap">graduating April 2027</span></div>
         <div class="btns">
-          <a class="btn primary" href="#projects">View projects</a>
-          <a class="btn" href="Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-hero" data-goatcounter-title="Resume download (hero)">Download resume</a>
-          <a class="btn" href="#contact">Get in touch</a>
+          <a class="btn primary" href="Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-hero" data-goatcounter-title="Resume download (hero)">Download resume</a>
+          <a class="btn" href="#projects">See the projects</a>
         </div>
       </div>
       <div class="hero-figure">
@@ -77,7 +80,7 @@
       <div class="page-head"><h2>Projects</h2><span class="pno">p. 02</span></div>
       <div class="entries">
         <article class="entry featured" id="p-crane" data-label="Wireless Mobile Marine Cargo Crane">
-          <div class="date">Fall 2026 &middot; in progress</div>
+          <div class="date">Fall 2026 &middot; team of 2 &middot; in progress</div>
           <h3><a href="projects/crane.html">Wireless Mobile Marine Cargo Crane</a></h3>
           <p class="desc">A remote-controlled crane running FreeRTOS on a dual-core ESP32, driven from a handheld ESP32 remote whose PCB I designed.</p>
           <table class="spec"><tr><th scope="row">MCU</th><td>ESP32, dual core</td></tr><tr><th scope="row">RTOS</th><td>FreeRTOS, pre-emptive</td></tr><tr><th scope="row">Link</th><td>ESP-NOW + watchdog</td></tr><tr><th scope="row">Board</th><td>2-layer, KiCad</td></tr></table>

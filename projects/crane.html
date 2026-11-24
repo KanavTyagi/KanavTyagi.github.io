@@ -34,8 +34,64 @@
     </figure>
   </div>
 
+  <section class="block" aria-labelledby="how-h">
+    <div class="page-head"><h2 id="how-h">How it works</h2></div>
+    <figure class="diagram">
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 820 270" role="img" aria-labelledby="dg-t dg-d" xmlns="http://www.w3.org/2000/svg">
+        <title id="dg-t">Crane control block diagram</title>
+        <desc id="dg-d">The handheld ESP32 remote sends operator commands over ESP-NOW into a length-1 FreeRTOS command queue guarded by a watchdog timer. Actuator tasks on core 1 drive the L298N H-bridge for the two DC gear motors and the lift and pivot servos. Four limit switches raise a GPIO interrupt; the safety ISR cuts the PWM outputs immediately and notifies a fault task.</desc>
+        <defs>
+          <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="ah"/></marker>
+          <marker id="ahc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" class="ahc"/></marker>
+        </defs>
+        <g class="n"><rect x="20" y="30" width="140" height="64" rx="3"/><text x="90" y="57">Handheld remote</text><text class="sub" x="90" y="77">ESP32 &#183; my PCB</text></g>
+        <g class="n"><rect x="230" y="30" width="150" height="64" rx="3"/><text x="305" y="57">Command queue</text><text class="sub" x="305" y="77">len 1 · watchdog</text></g>
+        <g class="n"><rect x="430" y="30" width="160" height="64" rx="3"/><text x="510" y="57">Actuator tasks</text><text class="sub" x="510" y="77">core 1</text></g>
+        <g class="n out"><rect x="640" y="20" width="160" height="56" rx="3"/><text x="720" y="44">L298N H-bridge</text><text class="sub" x="720" y="63">2 DC gear motors</text></g>
+        <g class="n out"><rect x="640" y="92" width="160" height="56" rx="3"/><text x="720" y="116">Servos</text><text class="sub" x="720" y="135">lift &#183; 180&#176; pivot</text></g>
+        <g class="n"><rect x="20" y="196" width="140" height="56" rx="3"/><text x="90" y="220">Limit switches</text><text class="sub" x="90" y="239">&#215;4, GPIO</text></g>
+        <g class="n safety"><rect x="230" y="196" width="150" height="56" rx="3"/><text x="305" y="220">Safety ISR</text><text class="sub" x="305" y="239">highest priority</text></g>
+        <g class="n"><rect x="430" y="196" width="160" height="56" rx="3"/><text x="510" y="220">Fault task</text><text class="sub" x="510" y="239">handles the trip</text></g>
+        <g class="w">
+          <path d="M160 62H228" marker-end="url(#ah)"/><text class="lbl" x="195" y="54">ESP-NOW</text>
+          <path d="M380 62H428" marker-end="url(#ah)"/>
+          <path d="M590 44H638" marker-end="url(#ah)"/>
+          <path d="M590 84H610V112H638" marker-end="url(#ah)"/>
+          <path d="M160 224H228" marker-end="url(#ah)"/>
+          <path class="dash" d="M380 224H428" marker-end="url(#ah)"/><text class="lbl" x="405" y="216">notify</text>
+        </g>
+        <g class="c">
+          <path d="M305 196V172H625V60H638" marker-end="url(#ahc)"/>
+          <path d="M625 132H638" marker-end="url(#ahc)"/>
+          <text class="lbl c" x="465" y="164">PWM off, immediately</text>
+        </g>
+      </svg>
+      </div>
+      <figcaption class="caption">the safety path skips the scheduler entirely</figcaption>
+    </figure>
+
+    <table class="tasks">
+      <caption>What runs where</caption>
+      <thead><tr><th scope="col">Part</th><th scope="col">Runs as</th><th scope="col">Job</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Safety ISR</th><td>GPIO interrupt, highest priority</td><td>Watches four limit switches, cuts the PWM outputs straight away and notifies the fault task</td></tr>
+        <tr><th scope="row">Fault task</th><td>FreeRTOS task</td><td>Handles the fault the ISR reports</td></tr>
+        <tr><th scope="row">Actuator tasks</th><td>FreeRTOS tasks, core 1</td><td>Drive the two DC gear motors through the L298N (hardware PWM) and the lift and pivot servos, synchronized with event flags and mutex-protected state</td></tr>
+        <tr><th scope="row">Command link</th><td>ESP-NOW into a length-1 queue</td><td>Carries operator packets from the handheld remote; a connection-watchdog timer guards the link</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-head">Two choices that matter</h3>
+    <ul class="built">
+      <li><strong>Stopping in the ISR, not in a task.</strong> When a limit switch trips, the interrupt cuts the motor PWM itself. Nothing waits for a task to be scheduled before the crane stops.</li>
+      <li><strong>A command queue of length one.</strong> It only ever holds the operator&#39;s newest command, so the crane never works through a backlog of stale inputs. The watchdog catches a link that goes quiet.</li>
+    </ul>
+  </section>
+
   <section class="block">
-    <div class="page-head"><h2>What I built</h2></div>
+    <div class="page-head"><h2>What we&#39;re building</h2></div>
+    <p class="credit">A two-person team project. The handheld controller PCB is my design.</p>
     <ul class="built">
       <li>Priority-based pre-emptive FreeRTOS scheduling on a dual-core ESP32 that coordinates the drive chassis, the vertical lift servo and the 180° pivot servo.</li>
       <li>Hard real-time safety interlocks: GPIO external-interrupt ISRs on four limit switches cut the PWM outputs immediately and signal a dedicated fault-handling task.</li>
