@@ -2,23 +2,23 @@
 
 /* ============================================================
    Graphite notebook — shared stylesheet for every page.
-   Dark-only by design.
+   Light only: engineering computation pad.
    ============================================================ */
 
 :root {
-  --page: #131518;
-  --grid: #1f2327;
-  --ink: #e4e7eb;
-  --ink-muted: #a4abb4;
-  --ink-faint: #8c939d;
-  --ch1: #f2c94c;
-  --ch2: #5ec8f2;
-  --rule: #2d3339;
-  --entry: rgba(255,255,255,.03);
-  --tape: rgba(205,140,50,.6);
-  --frame: #e8ebee;
-  --led: #3ddc84;
-  color-scheme: dark;
+  --page: #eef2ea;
+  --grid: #d6e0cd;
+  --ink: #1d2124;
+  --ink-muted: #474f56;
+  --ink-faint: #5c646b;
+  --ch1: #1f5fbf;
+  --ch2: #c42b2b;
+  --rule: #bfcab4;
+  --entry: rgba(255,255,255,.6);
+  --tape: rgba(205,140,50,.55);
+  --frame: #ffffff;
+  --led: #15963f;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +37,7 @@ body {
 a { color: var(--ch1); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--ch1); outline-offset: 3px; border-radius: 2px; }
-::selection { background: var(--ch1); color: var(--page); }
+::selection { background: var(--ch1); color: #ffffff; }
 img { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, .headline {
@@ -56,7 +56,7 @@ h1, h2, h3, .headline {
 /* ---------- Header ---------- */
 .site-header {
   position: sticky; top: 0; z-index: 10;
-  background: rgba(19, 21, 24, 0.92);
+  background: rgba(238, 242, 234, 0.92);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--rule);
 }
@@ -111,15 +111,15 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
 }
 .photo img {
   border: 8px solid var(--frame); border-bottom-width: 30px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 18px rgba(40, 50, 35, 0.22);
 }
 .printout img {
-  background: #fff; padding: 8px; border: 1px solid #d8d4cb;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  background: #fff; padding: 8px; border: 1px solid #cfd6c8;
+  box-shadow: 0 8px 18px rgba(40, 50, 35, 0.22);
 }
 .placeholder {
   display: flex; align-items: center; justify-content: center; text-align: center;
-  aspect-ratio: 4 / 3; background: #2a2f35; color: var(--ink-muted);
+  aspect-ratio: 4 / 3; background: #dfe5d8; color: var(--ink-muted);
   font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; font-size: 0.8rem; padding: 12px;
 }
 .photo .placeholder { border: 8px solid var(--frame); border-bottom-width: 30px; }
@@ -156,7 +156,7 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
 }
 .led {
   width: 8px; height: 8px; border-radius: 50%; flex: none; margin-top: 0.55em;
-  background: var(--led); box-shadow: 0 0 6px var(--led);
+  background: var(--led);
   animation: blink 2.4s steps(1) infinite;
 }
 @keyframes blink { 0%, 85% { opacity: 1; } 86%, 100% { opacity: 0.25; } }
@@ -166,8 +166,8 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
   border: 1px solid var(--ink-muted); color: var(--ink);
 }
 .btn:hover { text-decoration: none; border-color: var(--ch1); color: var(--ch1); }
-.btn.primary { background: var(--ch1); border-color: var(--ch1); color: var(--page); }
-.btn.primary:hover { color: var(--page); opacity: 0.9; }
+.btn.primary { background: var(--ch1); border-color: var(--ch1); color: #ffffff; }
+.btn.primary:hover { color: #ffffff; opacity: 0.9; }
 .hero-figure { position: relative; padding: 0 8px 64px; }
 .hero-figure .note-a { position: absolute; left: 0; right: 0; bottom: 12px; display: block; text-align: center; }
 .hero-figure .note-b { position: absolute; right: 0; top: -38px; transform: rotate(2deg); }
@@ -227,11 +227,11 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
   font-size: 0.82rem; padding: 6px 12px; border-radius: 3px;
   background: var(--entry); color: var(--ink); border: 1px solid var(--rule);
 }
-.skills button { cursor: pointer; border-color: #5a5245; }
+.skills button { cursor: pointer; border-color: #a9b59e; }
 .skills button::after { content: " \2197"; color: var(--ink-faint); }
 .skills button:hover { border-color: var(--ch1); }
-.skills button[aria-pressed="true"] { background: var(--ch1); border-color: var(--ch1); color: var(--page); }
-.skills button[aria-pressed="true"]::after { color: var(--page); }
+.skills button[aria-pressed="true"] { background: var(--ch1); border-color: var(--ch1); color: #ffffff; }
+.skills button[aria-pressed="true"]::after { color: #ffffff; }
 .skill-result {
   flex: 0 0 100%; margin: 4px 0 8px; padding: 14px 16px;
   background: var(--entry); border: 1px solid var(--rule); border-left: 3px solid var(--ch1);
@@ -252,7 +252,7 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
 .log-item.match { box-shadow: none; }
 .log-item.match h3 { color: var(--ch1); }
 .flash { animation: flash 1.2s ease-out; }
-@keyframes flash { 0% { background: rgba(242, 201, 76, 0.16); } 100% { background: transparent; } }
+@keyframes flash { 0% { background: rgba(31, 95, 191, 0.12); } 100% { background: transparent; } }
 
 /* ---------- Contact & footer ---------- */
 .contact p { color: var(--ink-muted); max-width: 560px; }
@@ -351,7 +351,7 @@ main section { padding: 64px 0; scroll-margin-top: 70px; }
   white-space: pre-wrap; max-width: 560px; line-height: 1.7;
   font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 }
-.fault .err { color: var(--ch1); font-weight: 600; }
+.fault .err { color: var(--ch2); font-weight: 600; }
 .fault .dim { color: var(--ink-faint); }
 
 /* ---------- Responsive ---------- */
