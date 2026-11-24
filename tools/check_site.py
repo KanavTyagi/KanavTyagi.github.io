@@ -19,9 +19,9 @@ ALLOWED_HOSTS = {"gc.zgo.at", "kanavtyagi.goatcounter.com", "www.youtube.com", "
 EVENTS = {"resume-download-nav", "resume-download-hero", "resume-download-contact",
           "resume-download-project", "email-click", "linkedin-click", "robo-heist-video"}
 IDS = ["p-crane", "p-xm23", "p-robo", "p-lice", "p-coral", "x-drs", "x-npl"]
-TOKENS = {"--page": "#1b1a18", "--grid": "#2a2824", "--ink": "#e8e3d8", "--ink-muted": "#a49c8c",
-          "--ink-faint": "#8f877a", "--coral": "#f08a6c", "--blue": "#8fc1ff", "--rule": "#3a3730",
-          "--entry": "rgba(255,255,255,.03)", "--tape": "rgba(232,200,120,.55)", "--frame": "#ece6d8"}
+TOKENS = {"--page": "#131518", "--grid": "#1f2327", "--ink": "#e4e7eb", "--ink-muted": "#a4abb4",
+          "--ink-faint": "#8c939d", "--ch1": "#f2c94c", "--ch2": "#5ec8f2", "--rule": "#2d3339",
+          "--entry": "rgba(255,255,255,.03)", "--tape": "rgba(205,140,50,.6)", "--frame": "#e8ebee"}
 FONT_FILES = ["plex-condensed-600", "plex-condensed-700", "caveat-500", "plex-sans", "plex-mono-400", "plex-mono-600"]  # plex-sans is variable (400-600)
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
@@ -305,13 +305,23 @@ def _lum(hexv):
     return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
 
 
+def test_no_old_palette():
+    bad = []
+    for f in PAGES + ["notebook.css"]:
+        t = read(f).lower()
+        for old in ("#1b1a18", "#f08a6c", "--coral", "--blue", "note coral", "note blue", "240, 138, 108", "27, 26, 24"):
+            if old in t:
+                bad.append(f"{f}: {old}")
+    return "; ".join(bad) or None
+
+
 def test_text_contrast():
     t = _tokens()
     if "--page" not in t:
         return "no --page token"
     bg = _lum(t["--page"].strip())
     bad = []
-    for k in ("--ink", "--ink-muted", "--ink-faint", "--coral"):
+    for k in ("--ink", "--ink-muted", "--ink-faint", "--ch1", "--ch2"):
         if k not in t:
             bad.append(f"{k} missing")
             continue

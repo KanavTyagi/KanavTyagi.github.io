@@ -58,7 +58,8 @@ The second thing visitors should remember: he enjoys building real hardware, and
 - **Only claim his own work:**
   - Team projects are labelled as team projects. Robo Heist was a team project (Group 19).
   - The coral station PCB was designed by someone else. Never say he designed or tested it.
-  - The crane controller PCB is his.
+  - The crane was a team of two. Kanav's parts: he led the wireless communication and the initial FreeRTOS setup, and did the PCB design and the DC motor drive. His partner did the 3D design and implemented the limit-switch code. Never credit the limit-switch interrupts or the 3D-printed parts to Kanav.
+- **Colour (Kanav's request):** must not resemble Claude's brand colours (warm coral on warm dark). The current palette is cool graphite with oscilloscope channel accents: CH1 yellow and CH2 cyan.
 - **Privacy:** no phone number on the site. The public email is kanavtyagi.172@gmail.com.
 
 ## Evidence on Hand

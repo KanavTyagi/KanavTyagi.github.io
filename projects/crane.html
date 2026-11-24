@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wireless Mobile Marine Cargo Crane | Kanav Tyagi</title>
   <meta name="description" content="A scaled, remote-controlled mobile crane for moving cargo safely between levels. It drives on a differential-drive chassis, lifts with a vertical servo and swings on a 180° pivot, all coordinated by FreeRTOS on a dual-core ESP32 and driven from a handheld ESP32 remote.">
-  <meta name="theme-color" content="#1b1a18">
+  <meta name="theme-color" content="#131518">
   <link rel="stylesheet" href="../notebook.css">
 </head>
 <body>
@@ -84,22 +84,27 @@
 
     <h3 class="sub-head">Two choices that matter</h3>
     <ul class="built">
-      <li><strong>Stopping in the ISR, not in a task.</strong> When a limit switch trips, the interrupt cuts the motor PWM itself. Nothing waits for a task to be scheduled before the crane stops.</li>
+      <li><strong>Stopping in the ISR, not in a task.</strong> When a limit switch trips, the interrupt cuts the motor PWM itself. Nothing waits for a task to be scheduled before the crane stops. (My partner wrote this part.)</li>
       <li><strong>A command queue of length one.</strong> It only ever holds the operator&#39;s newest command, so the crane never works through a backlog of stale inputs. The watchdog catches a link that goes quiet.</li>
     </ul>
   </section>
 
   <section class="block">
     <div class="page-head"><h2>What we&#39;re building</h2></div>
-    <p class="credit">A two-person team project. The handheld controller PCB is my design.</p>
+    <p class="credit">A two-person team project. I led the wireless link and the initial setup, and did the PCB design and the DC motor drive. My partner did the 3D design and implemented the limit-switch code.</p>
+    <h3 class="sub-head">My part</h3>
     <ul class="built">
-      <li>Priority-based pre-emptive FreeRTOS scheduling on a dual-core ESP32 that coordinates the drive chassis, the vertical lift servo and the 180° pivot servo.</li>
-      <li>Hard real-time safety interlocks: GPIO external-interrupt ISRs on four limit switches cut the PWM outputs immediately and signal a dedicated fault-handling task.</li>
-      <li>A low-latency ESP-NOW link from the handheld remote into a length-1 FreeRTOS command queue, guarded by a connection-watchdog timer.</li>
-      <li>Actuator tasks (L298N H-bridge DC drive and servo control) synchronized through event flags and mutex-protected shared state.</li>
-      <li>A two-layer handheld controller PCB with power regulation, joystick and push-button inputs, hardware debounce and status LEDs.</li>
-      <li>A 3D-printed chassis sled and enclosure.</li>
+      <li>The initial FreeRTOS setup: priority-based pre-emptive scheduling on a dual-core ESP32 that coordinates the drive chassis, the vertical lift servo and the 180° pivot servo.</li>
+      <li>The ESP-NOW link from the handheld remote into a length-1 FreeRTOS command queue, guarded by a connection-watchdog timer.</li>
+      <li>The DC motor drive: two DC gear motors through an L298N H-bridge with hardware PWM.</li>
+      <li>Actuator tasks for the drive and the servos, synchronized through event flags and mutex-protected shared state.</li>
+      <li>The two-layer handheld controller PCB, with power regulation, joystick and push-button inputs, hardware debounce and status LEDs.</li>
       <li>An IEEE-style software requirements specification with quantified timing requirements, schedulability analysis and a verification matrix.</li>
+    </ul>
+    <h3 class="sub-head">My partner&#39;s part</h3>
+    <ul class="built">
+      <li>The limit-switch code: GPIO interrupts on four limit switches that cut the PWM outputs and signal the fault task.</li>
+      <li>The 3D design: the printed chassis sled and the controller enclosure.</li>
     </ul>
   </section>
 
