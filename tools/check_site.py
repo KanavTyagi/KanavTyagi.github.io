@@ -19,10 +19,10 @@ ALLOWED_HOSTS = {"gc.zgo.at", "kanavtyagi.goatcounter.com", "www.youtube.com", "
 EVENTS = {"resume-download-nav", "resume-download-hero", "resume-download-contact",
           "resume-download-project", "email-click", "linkedin-click", "robo-heist-video"}
 IDS = ["p-crane", "p-xm23", "p-robo", "p-lice", "p-coral", "x-drs", "x-npl"]
-TOKENS = {"--page": "#1b1a18", "--grid": "#2a2824", "--ink": "#e8e3d8", "--ink-muted": "#a49c8c",
-          "--ink-faint": "#8f877a", "--coral": "#f08a6c", "--blue": "#8fc1ff", "--rule": "#3a3730",
-          "--entry": "rgba(255,255,255,.03)", "--tape": "rgba(232,200,120,.55)", "--frame": "#ece6d8"}
-FONT_FILES = ["fraunces", "caveat-500", "plex-sans", "plex-mono-400", "plex-mono-600"]  # fraunces, plex-sans are variable (both weights)
+TOKENS = {"--page": "#eef2ea", "--grid": "#d6e0cd", "--ink": "#1d2124", "--ink-muted": "#474f56",
+          "--ink-faint": "#5c646b", "--ch1": "#1f5fbf", "--ch2": "#c42b2b", "--rule": "#bfcab4",
+          "--entry": "rgba(255,255,255,.6)", "--tape": "rgba(205,140,50,.55)", "--frame": "#ffffff"}
+FONT_FILES = ["plex-condensed-600", "plex-condensed-700", "caveat-500", "plex-sans", "plex-mono-400", "plex-mono-600"]  # plex-sans is variable (400-600)
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
 
@@ -226,6 +226,29 @@ def test_project_pages_have_spec():
     return f"pages without exactly one .spec table: {bad}" if bad else None
 
 
+def test_hero_primary_is_resume():
+    d = dom("index.html")
+    hero = d.find_all(lambda n: "hero" in n.classes)
+    if not hero:
+        return "no .hero"
+    btns = hero[0].find_all(lambda n: "btn" in n.classes)
+    prim = [b for b in btns if "primary" in b.classes]
+    if len(btns) != 2:
+        return f"hero has {len(btns)} buttons (want 2)"
+    if len(prim) != 1 or prim[0].attrs.get("data-goatcounter-click") != "resume-download-hero":
+        return "hero primary button is not the resume download"
+
+
+def test_crane_has_diagram_and_tasks():
+    d = dom("projects/crane.html")
+    svgs = d.find_all(lambda n: n.tag == "svg" and n.attrs.get("role") == "img" and n.attrs.get("aria-labelledby"))
+    tables = d.find_all(lambda n: n.tag == "table" and "tasks" in n.classes)
+    bad = []
+    if len(svgs) != 1: bad.append(f"{len(svgs)} labelled svg diagrams")
+    if len(tables) != 1: bad.append(f"{len(tables)} .tasks tables")
+    return "; ".join(bad) or None
+
+
 # ---------------- Task 2 ----------------
 
 def test_fonts_present_and_small():
@@ -272,13 +295,23 @@ def _lum(hexv):
     return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
 
 
+def test_no_old_palette():
+    bad = []
+    for f in PAGES + ["notebook.css"]:
+        t = read(f).lower()
+        for old in ("#1b1a18", "#f08a6c", "#131518", "19, 21, 24", "--coral", "--blue", "note coral", "note blue", "240, 138, 108", "27, 26, 24"):
+            if old in t:
+                bad.append(f"{f}: {old}")
+    return "; ".join(bad) or None
+
+
 def test_text_contrast():
     t = _tokens()
     if "--page" not in t:
         return "no --page token"
     bg = _lum(t["--page"].strip())
     bad = []
-    for k in ("--ink", "--ink-muted", "--ink-faint", "--coral"):
+    for k in ("--ink", "--ink-muted", "--ink-faint", "--ch1", "--ch2"):
         if k not in t:
             bad.append(f"{k} missing")
             continue

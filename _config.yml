@@ -2,3 +2,6 @@ exclude:
   - docs
   - tools
   - .superpowers
+  - .impeccable
+  - PRODUCT.md
+  - DESIGN.md

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kanav Tyagi | Portfolio</title>
   <meta name="description" content="Kanav Tyagi, Computer Engineering student at Dalhousie University: embedded systems, firmware, PCB design and power electronics.">
-  <meta name="theme-color" content="#1b1a18">
+  <meta name="theme-color" content="#eef2ea">
   <link rel="stylesheet" href="notebook.css">
 </head>
 <body>
@@ -31,26 +31,24 @@
       <div class="hero-text">
         <h1 class="hero-name">Kanav Tyagi</h1>
         <p class="headline">I build hardware that works.</p>
-        <span class="note coral tagline">&hellip;usually on the 3rd revision</span>
+        <span class="note ch1 tagline">&hellip;usually on the 3rd revision</span>
         <p class="intro">
-          Final-year Computer Engineering student at Dalhousie University, graduating April 2027.
-          I work across the embedded stack, from PCB layout in KiCad to C/C++ firmware and
-          real-time control, and recently finished an Electrical Engineering co-op with the Naval
-          Engineering team at Leonardo DRS.
+          Final-year Computer Engineering student at Dalhousie University. I recently finished an
+          Electrical Engineering co-op with the Naval Engineering team at <strong>Leonardo DRS</strong>,
+          working on power conversion firmware for naval UPS systems.
         </p>
-        <div class="status" title="Status: open to work"><span class="led"></span>STATUS: open to new-grad roles &middot; graduating April 2027</div>
+        <div class="status" title="Status: open to work"><span class="led"></span><span>Open to new-grad roles &middot; <span class="nowrap">graduating April 2027</span></span></div>
         <div class="btns">
-          <a class="btn primary" href="#projects">View projects</a>
-          <a class="btn" href="Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-hero" data-goatcounter-title="Resume download (hero)">Download resume</a>
-          <a class="btn" href="#contact">Get in touch</a>
+          <a class="btn primary" href="Kanav_Tyagi_Resume.pdf" download data-goatcounter-click="resume-download-hero" data-goatcounter-title="Resume download (hero)">Download resume</a>
+          <a class="btn" href="#projects">See the projects</a>
         </div>
       </div>
       <div class="hero-figure">
-        <span class="note coral note-b">off to the fab &rarr;</span>
+        <span class="note ch1 note-b">off to the fab &rarr;</span>
         <figure class="taped printout">
           <img src="projects/img/crane-pcb-render.jpg" width="1250" height="1000" alt="3D render of the KiCad layout for the handheld ESP32 crane controller: ESP32 module, direction and e-stop buttons, joystick header">
         </figure>
-        <span class="note blue note-a">&uarr; hand-routed in KiCad, 2 layers</span>
+        <span class="note ch2 note-a">&uarr; hand-routed in KiCad, 2 layers</span>
       </div>
     </div>
   </div>
@@ -77,11 +75,11 @@
       <div class="page-head"><h2>Projects</h2><span class="pno">p. 02</span></div>
       <div class="entries">
         <article class="entry featured" id="p-crane" data-label="Wireless Mobile Marine Cargo Crane">
-          <div class="date">Fall 2026 &middot; in progress</div>
+          <div class="date">Fall 2026 &middot; team of 2 &middot; in progress</div>
           <h3><a href="projects/crane.html">Wireless Mobile Marine Cargo Crane</a></h3>
           <p class="desc">A remote-controlled crane running FreeRTOS on a dual-core ESP32, driven from a handheld ESP32 remote whose PCB I designed.</p>
           <table class="spec"><tr><th scope="row">MCU</th><td>ESP32, dual core</td></tr><tr><th scope="row">RTOS</th><td>FreeRTOS, pre-emptive</td></tr><tr><th scope="row">Link</th><td>ESP-NOW + watchdog</td></tr><tr><th scope="row">Board</th><td>2-layer, KiCad</td></tr></table>
-          <span class="note blue">limit switches &rarr; ISR &rarr; PWM off. no waiting.</span>
+          <span class="note ch2">ESP-NOW &rarr; queue of one &rarr; newest command wins</span>
           <figure class="taped printout entry-figure"><img src="projects/img/crane-pcb-render.jpg" width="1250" height="1000" loading="lazy" alt="3D render of the KiCad layout for the handheld ESP32 crane controller: ESP32 module, direction and e-stop buttons, joystick header"></figure>
           <div class="more">View details &rarr;</div>
         </article>
@@ -90,7 +88,7 @@
           <h3><a href="projects/robo-heist.html">Robo Heist Challenge</a></h3>
           <p class="desc">Our team&#39;s autonomous robot worked through a secured arena, past simulated RFID and laser-tripwire security, and took 2nd prize.</p>
           <table class="spec"><tr><th scope="row">Brains</th><td>Arduino + Raspberry Pi Pico</td></tr><tr><th scope="row">Sensors</th><td>ultrasonic, encoders</td></tr><tr><th scope="row">Result</th><td>2nd prize</td></tr></table>
-          <span class="note blue">2nd prize, Group 19 &#10003;</span>
+          <span class="note ch2">2nd prize, Group 19 &#10003;</span>
           <figure class="taped photo tilt-left entry-figure"><img src="projects/img/robo-heist-team.jpg" width="1600" height="1067" loading="lazy" alt="Group 19 holding their 2nd prize certificates at the ECED 3901 Peter Gregson Design Challenge, March 2025"></figure>
           <div class="more">View details &rarr;</div>
         </article>
@@ -156,7 +154,7 @@
           <div>
             <h3>Lab Intern, Bio-Technology Lab | CSIR National Physical Laboratory</h3>
             <p>Electrical safety testing of medical equipment to IEC 60601. I also built a Python model that predicts EKG protective earth resistance from temperature and humidity, with 85% accuracy on 15,000+ data points.</p>
-            <span class="note blue">85% accuracy on 15,000+ data points</span>
+            <span class="note ch2">85% accuracy on 15,000+ data points</span>
           </div>
         </div>
 
@@ -226,7 +224,7 @@
 </footer>
 
 <script>
-  console.log("%c[  OK  ] boot complete", "color:#f08a6c;font-family:monospace;font-weight:bold");
+  console.log("%c[  OK  ] boot complete", "color:#1f5fbf;font-family:monospace;font-weight:bold");
   console.log("%cReading the source? Same. Say hi at kanavtyagi.172@gmail.com", "font-family:monospace");
 </script>
 <script>
@@ -267,9 +265,8 @@
       { text: 'Implemented decision-making logic in C++/Arduino for an autonomous retrieval robot.', ref: 'p-robo' }
     ],
     'FreeRTOS': [
-      { text: 'Used priority-based pre-emptive scheduling on a dual-core ESP32 to coordinate a drive chassis, a lift servo and a pivot servo.', ref: 'p-crane' },
-      { text: 'Fed remote commands into a length-1 queue guarded by a connection-watchdog timer, with event flags and mutex-protected shared state.', ref: 'p-crane' },
-      { text: 'Limit-switch ISRs cut PWM outputs immediately and signal a dedicated fault-handling task.', ref: 'p-crane' }
+      { text: 'Set up priority-based pre-emptive scheduling on a dual-core ESP32 to coordinate a drive chassis, a lift servo and a pivot servo.', ref: 'p-crane' },
+      { text: 'Fed remote commands into a length-1 queue guarded by a connection-watchdog timer, with event flags and mutex-protected shared state.', ref: 'p-crane' }
     ],
     'TI MCUs / CCS': [
       { text: 'Developed and optimized firmware for power conversion systems on TI microcontrollers in Code Composer Studio.', ref: 'x-drs' },
@@ -300,8 +297,7 @@
     ],
     'UART / I2C': [],
     'PWM / H-Bridge': [
-      { text: 'Drove the crane chassis with DC motors through an L298N H-bridge.', ref: 'p-crane' },
-      { text: 'Made limit-switch interrupts cut PWM outputs immediately as a safety interlock.', ref: 'p-crane' }
+      { text: 'Wrote the DC motor drive for the crane chassis: two DC gear motors through an L298N H-bridge with hardware PWM.', ref: 'p-crane' }
     ],
     'ESP-NOW': [
       { text: 'Built a low-latency ESP-NOW link from a handheld ESP32 remote to the crane, with a connection watchdog.', ref: 'p-crane' }
